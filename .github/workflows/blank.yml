@@ -7,27 +7,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout mã nguồn
+      - name: Checkout
         uses: actions/checkout@v4
-        with:
-          repository: maitatthanh9/Build_Kernel_SM-T285
-          ref: main
-          path: kernel_source
 
       - name: Cài đặt công cụ
         run: |
           sudo apt-get update
           sudo apt-get install -y bc bison build-essential curl flex gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi git libncurses-dev python3 unzip zlib1g-dev
 
-      - name: Build Kernel
+      - name: Build
         run: |
-          cd kernel_source
           export ARCH=arm
           export CROSS_COMPILE=arm-linux-gnueabi-
-          
-          echo "Đang liệt kê các file cấu hình..."
-          ls arch/arm/configs/
-          
-          echo "Đang thực thi lệnh make..."
+          export CROSS_COMPILE_ARM32=arm-linux-gnueabi-
           make gtexswifi_defconfig
           make -j$(nproc)
