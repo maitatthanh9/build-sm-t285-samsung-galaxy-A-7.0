@@ -6,12 +6,15 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read  # Cấp quyền đọc repo
     steps:
       - name: Checkout mã nguồn Kernel
-        run: |
-          git clone https://github.com/maitatthanh9/Build_Kernel_SM-T285.git kernel_source
-          cd kernel_source
-          git checkout main
+        uses: actions/checkout@v4
+        with:
+          repository: maitatthanh9/Build_Kernel_SM-T285
+          ref: main
+          path: kernel_source
 
       - name: Cài đặt công cụ build
         run: |
