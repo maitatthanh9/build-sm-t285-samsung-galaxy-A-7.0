@@ -5,13 +5,13 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout mã nguồn Kernel
         uses: actions/checkout@v4
         with:
           repository: 'maitatthanh9/Build_Kernel_SM-T285'
-          ref: 'main' # Nếu repo của bạn dùng nhánh khác (ví dụ: master), hãy đổi tên ở đây
+          ref: 'main' 
 
       - name: Cài đặt công cụ build
         run: |
