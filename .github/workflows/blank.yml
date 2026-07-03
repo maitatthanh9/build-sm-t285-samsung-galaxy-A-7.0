@@ -1,4 +1,4 @@
-name: Build Android ROM
+name: Build Kernel SM-T285
 
 on:
   workflow_dispatch:
@@ -7,16 +7,20 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout mã nguồn
+      - name: Checkout mã nguồn Kernel
         uses: actions/checkout@v4
+        with:
+          repository: 'maitatthanh9/android_kernel_samsung_gtexswifi' # Thay bằng link repo kernel của bạn
+          ref: 'lineage-18.1' # Nhánh bạn đang dùng
 
-      - name: Chuẩn bị môi trường
+      - name: Cài đặt công cụ build
         run: |
           sudo apt-get update
-          sudo apt-get install -y git-core gnupg flex bison build-essential zip curl zlib1g-dev gcc-multilib g++-multilib libc6-dev-i386 lib32ncurses-dev x11proto-core-dev libx11-dev lib32z1-dev libgl1-mesa-dev libxml2-utils xsltproc unzip fontconfig
+          sudo apt-get install -y bc bison build-essential curl flex gcc-aarch64-linux-gnu gcc-arm-linux-gnueabi git libncurses-dev python3 unzip zlib1g-dev
 
-      - name: Kiểm tra trạng thái hệ thống
+      - name: Build Kernel
         run: |
-          echo "Môi trường đã sẵn sàng!"
-          df -h
-          free -h
+          export ARCH=arm
+          export CROSS_COMPILE=arm-linux-gnueabi-
+          make gtexswifi_defconfig # Thay bằng file config đúng cho SM-T285
+          make -j$(nproc)
