@@ -10,8 +10,8 @@ jobs:
       - name: Checkout mã nguồn Kernel
         uses: actions/checkout@v4
         with:
-          repository: 'maitatthanh9/android_kernel_samsung_gtexswifi' # Thay bằng link repo kernel của bạn
-          ref: 'lineage-18.1' # Nhánh bạn đang dùng
+          repository: 'maitatthanh9/android_kernel_samsung_gtexswifi'
+          ref: 'lineage-18.1'
 
       - name: Cài đặt công cụ build
         run: |
@@ -22,5 +22,5 @@ jobs:
         run: |
           export ARCH=arm
           export CROSS_COMPILE=arm-linux-gnueabi-
-          make gtexswifi_defconfig # Thay bằng file config đúng cho SM-T285
+          make gtexswifi_defconfig
           make -j$(nproc)
