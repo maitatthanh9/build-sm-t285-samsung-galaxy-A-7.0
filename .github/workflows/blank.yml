@@ -5,13 +5,13 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
       - name: Checkout mã nguồn Kernel
-        uses: actions/checkout@v4
-        with:
-          repository: 'maitatthanh9/Build_Kernel_SM-T285'
-          ref: 'main' 
+        run: |
+          git clone https://github.com/maitatthanh9/Build_Kernel_SM-T285.git kernel_source
+          cd kernel_source
+          git checkout main
 
       - name: Cài đặt công cụ build
         run: |
@@ -20,8 +20,8 @@ jobs:
 
       - name: Build Kernel
         run: |
+          cd kernel_source
           export ARCH=arm
           export CROSS_COMPILE=arm-linux-gnueabi-
-          # Lưu ý: Thay 'gtexswifi_defconfig' bằng tên file config thực tế trong thư mục arch/arm/configs/ của bạn
           make gtexswifi_defconfig
           make -j$(nproc)
