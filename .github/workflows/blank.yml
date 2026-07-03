@@ -6,15 +6,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read  # Cấp quyền đọc repo
     steps:
-      - name: Checkout mã nguồn Kernel
+      - name: Checkout mã nguồn tại chỗ
         uses: actions/checkout@v4
-        with:
-          repository: maitatthanh9/Build_Kernel_SM-T285
-          ref: main
-          path: kernel_source
 
       - name: Cài đặt công cụ build
         run: |
@@ -23,7 +17,6 @@ jobs:
 
       - name: Build Kernel
         run: |
-          cd kernel_source
           export ARCH=arm
           export CROSS_COMPILE=arm-linux-gnueabi-
           make gtexswifi_defconfig
